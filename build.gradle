@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+}
+
+group 'org.movietime.webapp'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        print(output.classesDirs.toList().forEach{
+            if (it.toString().contains("kotlin"))
+                output.resourcesDir = it.toString()
+        })
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'io.undertow', name: 'undertow-servlet', version: '2.0.17.Final'
+    compile group: 'org.jboss.resteasy', name : 'resteasy-undertow', version: '3.6.2.Final'
+
+    compile group: 'org.jboss.resteasy', name: 'resteasy-servlet-initializer', version: '3.6.2.Final'
+    compile group: 'org.jboss.resteasy', name: 'resteasy-cdi', version: '3.6.2.Final'
+    compile group: 'org.jboss.resteasy', name: 'resteasy-jackson2-provider', version: '3.6.2.Final'
+
+    compile group: 'org.jboss.weld.servlet', name: 'weld-servlet-core', version: '3.1.4.Final'
+    compile group: 'org.jboss.weld', name: 'weld-core-impl', version: '3.1.4.Final'
+
+    compileOnly "org.jboss.spec.javax.servlet:jboss-servlet-api_4.0_spec:1.0.0.Final"
+
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: '1.3.72'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
